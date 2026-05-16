@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class WjugApplication
 
 fun main(args: Array<String>) {
-	runApplication<WjugApplication>(*args)
+    runApplication<WjugApplication>(*args)
 }

@@ -18,23 +18,20 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 
 @RestController
-@RequestMapping(
-    "/api/v1/orders",
-    produces = [JSON_API_MEDIA_TYPE],
-    consumes = [JSON_API_MEDIA_TYPE],
-)
+@RequestMapping(produces = [JSON_API_MEDIA_TYPE])
 class OrderController(
-    private val orderFacade: OrderFacade,
+    private val orderFacade: OrderFacade
 ) {
 
-    @GetMapping(consumes = ["*/*"])
-    fun findAll(): JsonApiDocument<List<JsonApiResource<OrderAttributes>>> =
-        listDocument(
+    @GetMapping("/api/v1/orders")
+    fun findAll(): JsonApiDocument<List<JsonApiResource<OrderAttributes>>> {
+        return listDocument(
             type = TYPE,
-            items = orderFacade.findAll().map { it.id to it.toAttributes() },
+            items = orderFacade.findAll().map { it.id to it.toAttributes() }
         )
+    }
 
-    @GetMapping("/{id}", consumes = ["*/*"])
+    @GetMapping("/api/v1/orders/{id}")
     fun findById(@PathVariable id: String): JsonApiDocument<JsonApiResource<OrderAttributes>> {
         val order = orderFacade.getById(id)
         return singleDocument(type = TYPE, id = order.id, attributes = order.toAttributes())
@@ -42,7 +39,7 @@ class OrderController(
 
     @PostMapping
     fun create(
-        @RequestBody request: JsonApiDocument<JsonApiResource<CreateOrderAttributes>>,
+        @RequestBody request: JsonApiDocument<JsonApiResource<CreateOrderAttributes>>
     ): ResponseEntity<JsonApiDocument<JsonApiResource<OrderAttributes>>> {
         val command = CreateOrderCommand(pizzaIds = request.data.attributes.pizzaIds)
         val order = orderFacade.create(command)
@@ -55,7 +52,9 @@ class OrderController(
             .body(singleDocument(type = TYPE, id = order.id, attributes = order.toAttributes()))
     }
 
-    private fun Order.toAttributes() = OrderAttributes(pizzaIds = pizzaIds)
+    private fun Order.toAttributes(): OrderAttributes {
+        return OrderAttributes(pizzaIds = pizzaIds)
+    }
 
     companion object {
         private const val TYPE = "orders"
@@ -63,9 +62,9 @@ class OrderController(
 }
 
 data class OrderAttributes(
-    val pizzaIds: List<String>,
+    val pizzaIds: List<String>
 )
 
 data class CreateOrderAttributes(
-    val pizzaIds: List<String>,
+    val pizzaIds: List<String>
 )

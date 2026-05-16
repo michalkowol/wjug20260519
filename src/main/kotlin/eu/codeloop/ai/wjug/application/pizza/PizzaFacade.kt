@@ -3,14 +3,17 @@ package eu.codeloop.ai.wjug.application.pizza
 import eu.codeloop.ai.wjug.domain.pizza.Pizza
 import eu.codeloop.ai.wjug.domain.pizza.PizzaNotFoundException
 import eu.codeloop.ai.wjug.domain.pizza.PizzaRepository
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 
-@Service
+@Component
 class PizzaFacade(
-    private val pizzaRepository: PizzaRepository,
+    private val pizzaRepository: PizzaRepository
 ) {
-    fun findAll(): List<Pizza> = pizzaRepository.findAll()
+    fun findAll(): List<Pizza> {
+        return pizzaRepository.findAll()
+    }
 
-    fun getById(id: String): Pizza =
-        pizzaRepository.findById(id) ?: throw PizzaNotFoundException(id)
+    fun getById(id: String): Pizza {
+        return pizzaRepository.findById(id) ?: throw PizzaNotFoundException(id)
+    }
 }

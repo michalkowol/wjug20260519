@@ -14,26 +14,28 @@ import org.springframework.web.bind.annotation.RestController
 import java.math.BigDecimal
 
 @RestController
-@RequestMapping("/api/v1/pizzas", produces = [JSON_API_MEDIA_TYPE])
+@RequestMapping(produces = [JSON_API_MEDIA_TYPE])
 class PizzaController(
-    private val pizzaFacade: PizzaFacade,
+    private val pizzaFacade: PizzaFacade
 ) {
 
-    @GetMapping
-    fun findAll(): JsonApiDocument<List<JsonApiResource<PizzaAttributes>>> =
-        listDocument(
+    @GetMapping("/api/v1/pizzas")
+    fun findAll(): JsonApiDocument<List<JsonApiResource<PizzaAttributes>>> {
+        return listDocument(
             type = TYPE,
-            items = pizzaFacade.findAll().map { it.id to it.toAttributes() },
+            items = pizzaFacade.findAll().map { it.id to it.toAttributes() }
         )
+    }
 
-    @GetMapping("/{id}")
+    @GetMapping("/api/v1/pizzas/{id}")
     fun findById(@PathVariable id: String): JsonApiDocument<JsonApiResource<PizzaAttributes>> {
         val pizza = pizzaFacade.getById(id)
         return singleDocument(type = TYPE, id = pizza.id, attributes = pizza.toAttributes())
     }
 
-    private fun Pizza.toAttributes() =
-        PizzaAttributes(name = name, ingredients = ingredients, price = price)
+    private fun Pizza.toAttributes(): PizzaAttributes {
+        return PizzaAttributes(name = name, ingredients = ingredients, price = price)
+    }
 
     companion object {
         private const val TYPE = "pizzas"
@@ -43,5 +45,5 @@ class PizzaController(
 data class PizzaAttributes(
     val name: String,
     val ingredients: List<String>,
-    val price: BigDecimal,
+    val price: BigDecimal
 )

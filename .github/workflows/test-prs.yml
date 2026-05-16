@@ -1,0 +1,24 @@
+name: Test PR
+
+on: pull_request
+
+jobs:
+  test-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup JDK
+        uses: actions/setup-java@v5
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+
+      - name: Check out repository code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Run gradle check
+        run: ./gradlew clean check

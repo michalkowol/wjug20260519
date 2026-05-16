@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class NotFoundExceptionHandler {
 
     @ExceptionHandler(PizzaNotFoundException::class)
-    fun handlePizzaNotFound(ex: PizzaNotFoundException): ProblemDetail =
-        ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.message)
+    fun handlePizzaNotFound(ex: PizzaNotFoundException): ProblemDetail {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.message)
+    }
 
     @ExceptionHandler(OrderNotFoundException::class)
-    fun handleOrderNotFound(ex: OrderNotFoundException): ProblemDetail =
-        ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.message)
+    fun handleOrderNotFound(ex: OrderNotFoundException): ProblemDetail {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.message)
+    }
 }
