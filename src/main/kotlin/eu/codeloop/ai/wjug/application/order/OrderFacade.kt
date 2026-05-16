@@ -2,6 +2,7 @@ package eu.codeloop.ai.wjug.application.order
 
 import eu.codeloop.ai.wjug.domain.common.IdGenerator
 import eu.codeloop.ai.wjug.domain.order.Order
+import eu.codeloop.ai.wjug.domain.order.OrderId
 import eu.codeloop.ai.wjug.domain.order.OrderNotFoundException
 import eu.codeloop.ai.wjug.domain.order.OrderRepository
 import eu.codeloop.ai.wjug.domain.pizza.PizzaNotFoundException
@@ -18,7 +19,7 @@ class OrderFacade(
         return orderRepository.findAll()
     }
 
-    fun getById(id: String): Order {
+    fun getById(id: OrderId): Order {
         return orderRepository.findById(id) ?: throw OrderNotFoundException(id)
     }
 
@@ -26,7 +27,7 @@ class OrderFacade(
         command.pizzaIds.forEach { pizzaId ->
             pizzaRepository.findById(pizzaId) ?: throw PizzaNotFoundException(pizzaId)
         }
-        val order = Order(id = idGenerator.generate(), pizzaIds = command.pizzaIds)
+        val order = Order(id = OrderId(idGenerator.generate()), pizzaIds = command.pizzaIds)
         orderRepository.save(order)
         return order
     }

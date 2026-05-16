@@ -1,3 +1,3 @@
 package eu.codeloop.ai.wjug.domain.pizza
 
-class PizzaNotFoundException(id: String) : RuntimeException("Pizza not found [id=$id]")
+class PizzaNotFoundException(id: PizzaId) : RuntimeException("Pizza not found [id=$id]")

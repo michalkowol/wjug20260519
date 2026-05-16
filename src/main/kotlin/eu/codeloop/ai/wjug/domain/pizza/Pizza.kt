@@ -1,10 +1,16 @@
 package eu.codeloop.ai.wjug.domain.pizza
 
-import java.math.BigDecimal
+@JvmInline
+value class PizzaId(val value: String) {
+    override fun toString(): String {
+        return value
+    }
+}
 
 data class Pizza(
-    val id: String,
+    val id: PizzaId,
     val name: String,
     val ingredients: List<String>,
-    val price: BigDecimal
+    val price: String,
+    val currency: String = "PLN"
 )

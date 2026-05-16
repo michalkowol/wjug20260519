@@ -1,45 +1,45 @@
 package eu.codeloop.ai.wjug.boundary.outbound.pizza
 
 import eu.codeloop.ai.wjug.domain.pizza.Pizza
+import eu.codeloop.ai.wjug.domain.pizza.PizzaId
 import eu.codeloop.ai.wjug.domain.pizza.PizzaRepository
 import org.springframework.stereotype.Repository
-import java.math.BigDecimal
 import java.util.concurrent.ConcurrentHashMap
 
 @Repository
 class InMemoryPizzaRepository : PizzaRepository {
 
-    private val store = ConcurrentHashMap<String, Pizza>(
+    private val store = ConcurrentHashMap(
         listOf(
             Pizza(
-                id = "margherita",
+                id = PizzaId("margherita"),
                 name = "Margherita",
                 ingredients = listOf("tomato", "mozzarella", "basil"),
-                price = BigDecimal("25.00")
+                price = "25.00"
             ),
             Pizza(
-                id = "pepperoni",
+                id = PizzaId("pepperoni"),
                 name = "Pepperoni",
                 ingredients = listOf("tomato", "mozzarella", "pepperoni"),
-                price = BigDecimal("27.00")
+                price = "27.00"
             ),
             Pizza(
-                id = "hawaiian",
+                id = PizzaId("hawaiian"),
                 name = "Hawaiian",
                 ingredients = listOf("tomato", "mozzarella", "ham", "pineapple"),
-                price = BigDecimal("29.00")
+                price = "29.00"
             ),
             Pizza(
-                id = "capricciosa",
+                id = PizzaId("capricciosa"),
                 name = "Capricciosa",
                 ingredients = listOf("tomato", "mozzarella", "ham", "mushrooms", "artichokes"),
-                price = BigDecimal("31.00")
+                price = "31.00"
             ),
             Pizza(
-                id = "quattro-formaggi",
+                id = PizzaId("quattro-formaggi"),
                 name = "Quattro Formaggi",
                 ingredients = listOf("mozzarella", "gorgonzola", "parmesan", "fontina"),
-                price = BigDecimal("33.00")
+                price = "33.00"
             )
         ).associateBy { it.id }
     )
@@ -48,7 +48,7 @@ class InMemoryPizzaRepository : PizzaRepository {
         return store.values.toList()
     }
 
-    override fun findById(id: String): Pizza? {
+    override fun findById(id: PizzaId): Pizza? {
         return store[id]
     }
 }

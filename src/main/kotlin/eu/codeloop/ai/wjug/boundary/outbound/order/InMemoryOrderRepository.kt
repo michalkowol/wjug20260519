@@ -1,18 +1,23 @@
 package eu.codeloop.ai.wjug.boundary.outbound.order
 
 import eu.codeloop.ai.wjug.domain.order.Order
+import eu.codeloop.ai.wjug.domain.order.OrderId
 import eu.codeloop.ai.wjug.domain.order.OrderRepository
+import eu.codeloop.ai.wjug.domain.pizza.PizzaId
 import org.springframework.stereotype.Repository
 import java.util.concurrent.ConcurrentHashMap
 
 @Repository
 class InMemoryOrderRepository : OrderRepository {
 
-    private val store = ConcurrentHashMap<String, Order>(
+    private val store = ConcurrentHashMap(
         listOf(
-            Order(id = "order-1", pizzaIds = listOf("margherita")),
-            Order(id = "order-2", pizzaIds = listOf("margherita", "pepperoni")),
-            Order(id = "order-3", pizzaIds = listOf("hawaiian", "capricciosa", "quattro-formaggi"))
+            Order(id = OrderId("8qyha3"), pizzaIds = listOf(PizzaId("margherita"))),
+            Order(id = OrderId("84tain"), pizzaIds = listOf(PizzaId("margherita"), PizzaId("pepperoni"))),
+            Order(
+                id = OrderId("67fi6j"),
+                pizzaIds = listOf(PizzaId("hawaiian"), PizzaId("capricciosa"), PizzaId("quattro-formaggi"))
+            )
         ).associateBy { it.id }
     )
 
@@ -20,7 +25,7 @@ class InMemoryOrderRepository : OrderRepository {
         return store.values.toList()
     }
 
-    override fun findById(id: String): Order? {
+    override fun findById(id: OrderId): Order? {
         return store[id]
     }
 

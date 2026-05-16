@@ -1,3 +1,3 @@
 package eu.codeloop.ai.wjug.domain.order
 
-class OrderNotFoundException(id: String) : RuntimeException("Order not found [id=$id]")
+class OrderNotFoundException(id: OrderId) : RuntimeException("Order not found [id=$id]")
