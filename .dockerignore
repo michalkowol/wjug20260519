@@ -1,0 +1,14 @@
+.git
+.github
+.gradle
+.idea
+.kotlin
+build
+*.iml
+Dockerfile
+.dockerignore
+.gitignore
+.gitattributes
+.java-version
+README.md
+LICENSE
