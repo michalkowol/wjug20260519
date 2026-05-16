@@ -12,5 +12,6 @@ data class Pizza(
     val name: String,
     val ingredients: List<String>,
     val price: String,
+    val diameterCm: Int,
     val currency: String = "PLN"
 )

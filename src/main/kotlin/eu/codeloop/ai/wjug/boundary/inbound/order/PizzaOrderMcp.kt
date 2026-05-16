@@ -14,7 +14,8 @@ import org.springframework.stereotype.Component
 class PizzaOrderMcp(private val orderFacade: OrderFacade) {
 
     @McpTool(
-        description = "Order pizzas",
+        name = "order-pizzas",
+        description = "Operation for ordering pizzas",
         annotations = McpAnnotations(
             readOnlyHint = false,
             idempotentHint = false,

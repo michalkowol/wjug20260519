@@ -15,31 +15,36 @@ class InMemoryPizzaRepository : PizzaRepository {
                 id = PizzaId("margherita"),
                 name = "Margherita",
                 ingredients = listOf("tomato", "mozzarella", "basil"),
-                price = "29.00"
+                price = "29.00",
+                diameterCm = 32
             ),
             Pizza(
                 id = PizzaId("pepperoni"),
                 name = "Pepperoni",
                 ingredients = listOf("tomato", "mozzarella", "pepperoni"),
-                price = "32.00"
+                price = "32.00",
+                diameterCm = 32
             ),
             Pizza(
                 id = PizzaId("vegetarian"),
                 name = "Vegetarian",
                 ingredients = listOf("tomato", "mozzarella", "peppers", "mushrooms", "onions", "olives"),
-                price = "35.00"
+                price = "35.00",
+                diameterCm = 32
             ),
             Pizza(
                 id = PizzaId("capricciosa"),
                 name = "Capricciosa",
                 ingredients = listOf("tomato", "mozzarella", "ham", "mushrooms", "artichokes"),
-                price = "38.00"
+                price = "38.00",
+                diameterCm = 32
             ),
             Pizza(
                 id = PizzaId("quattro-formaggi"),
                 name = "Quattro Formaggi",
                 ingredients = listOf("mozzarella", "gorgonzola", "parmesan", "fontina"),
-                price = "42.00"
+                price = "42.00",
+                diameterCm = 32
             )
         ).associateBy { it.id }
     )

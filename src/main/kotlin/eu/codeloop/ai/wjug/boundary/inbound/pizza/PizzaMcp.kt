@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component
 class PizzaMcp(private val pizzaFacade: PizzaFacade) {
 
     @McpTool(
+        name = "list-pizzas",
         description = "List all available pizzas",
         annotations = McpAnnotations(
             readOnlyHint = true,
