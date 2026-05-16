@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder
+import java.net.URI
 
 @RestController
 class OrderController(
@@ -33,10 +33,7 @@ class OrderController(
     fun create(@RequestBody request: CreateOrderRequest): ResponseEntity<JSendSuccess<Order>> {
         val command = CreateOrderCommand(pizzaIds = request.pizzaIds)
         val order = orderFacade.create(command)
-        val location = ServletUriComponentsBuilder.fromCurrentRequest()
-            .path("/{id}")
-            .buildAndExpand(order.id.value)
-            .toUri()
+        val location = URI.create("/api/v1/orders/${order.id.value}")
         return ResponseEntity.created(location).body(JSendSuccess(data = order))
     }
 }
