@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.annotation.Order
 import java.math.BigDecimal
 
 @Configuration
@@ -15,6 +16,7 @@ class PizzaMenuSeeder {
     private val log = LoggerFactory.getLogger(PizzaMenuSeeder::class.java)
 
     @Bean
+    @Order(1)
     fun seedPizzaMenu(
         pizzaRepository: PizzaRepository,
         idGenerator: IdGenerator,
