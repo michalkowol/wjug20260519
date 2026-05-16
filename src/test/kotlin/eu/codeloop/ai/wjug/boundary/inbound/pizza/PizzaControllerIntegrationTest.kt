@@ -23,7 +23,7 @@ class PizzaControllerIntegrationTest : IntegrationTest() {
             jsonPath("$.status") { value("success") }
             jsonPath("$.data.id") { value("margherita") }
             jsonPath("$.data.name") { value("Margherita") }
-            jsonPath("$.data.price") { value("29.00") }
+            jsonPath("$.data.price") { value("41.00") }
             jsonPath("$.data.currency") { value("PLN") }
         }
     }
