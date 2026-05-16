@@ -1,0 +1,23 @@
+### Health check
+GET {{host}}/actuator/health
+
+### List all pizzas
+GET {{host}}/api/v1/pizzas
+
+### Get pizza by id
+GET {{host}}/api/v1/pizzas/margherita
+
+### List all orders
+GET {{host}}/api/v1/orders
+
+### Create an order
+POST {{host}}/api/v1/orders
+Content-Type: application/json
+
+{
+  "pizzaIds": ["margherita", "pepperoni"]
+}
+
+### Get order by id
+@orderId = 8qyha3
+GET {{host}}/api/v1/orders/{{orderId}}
