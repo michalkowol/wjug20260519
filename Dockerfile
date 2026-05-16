@@ -1,0 +1,33 @@
+# Stage 1: Build
+FROM gradle:9.4.1-jdk25-alpine AS builder
+WORKDIR /app
+
+COPY build.gradle.kts settings.gradle.kts ./
+RUN gradle dependencies --no-daemon --configuration runtimeClasspath
+
+COPY src ./src
+RUN gradle bootJar --no-daemon
+
+# Stage 2: Extract Spring Boot layers
+FROM eclipse-temurin:25-jre-alpine AS layers
+WORKDIR /builder
+COPY --from=builder /app/build/libs/app.jar app.jar
+RUN java -Djarmode=tools -jar app.jar extract --layers --destination extracted
+
+# Stage 3: Runtime
+FROM eclipse-temurin:25-jre-alpine
+RUN addgroup -S app && adduser -S app -G app
+WORKDIR /application
+
+COPY --from=layers --chown=app:app /builder/extracted/dependencies/ ./
+COPY --from=layers --chown=app:app /builder/extracted/spring-boot-loader/ ./
+COPY --from=layers --chown=app:app /builder/extracted/snapshot-dependencies/ ./
+COPY --from=layers --chown=app:app /builder/extracted/application/ ./
+
+USER app
+
+HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=3 CMD wget --quiet --tries=1 --spider http://localhost:8080/actuator/health || exit 1
+
+ENV JDK_JAVA_OPTIONS="-XX:MaxRAMPercentage=75.0"
+ENV SERVER_PORT=8080
+ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -28,6 +28,10 @@ repositories {
 	mavenCentral()
 }
 
+tasks.bootJar {
+	archiveFileName = "app.jar"
+}
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
