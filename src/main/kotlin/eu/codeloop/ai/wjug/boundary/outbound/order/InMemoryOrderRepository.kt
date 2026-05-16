@@ -16,7 +16,7 @@ class InMemoryOrderRepository : OrderRepository {
             Order(id = OrderId("84tain"), pizzaIds = listOf(PizzaId("margherita"), PizzaId("pepperoni"))),
             Order(
                 id = OrderId("67fi6j"),
-                pizzaIds = listOf(PizzaId("hawaiian"), PizzaId("capricciosa"), PizzaId("quattro-formaggi"))
+                pizzaIds = listOf(PizzaId("vegetarian"), PizzaId("capricciosa"), PizzaId("quattro-formaggi"))
             )
         ).associateBy { it.id }
     )

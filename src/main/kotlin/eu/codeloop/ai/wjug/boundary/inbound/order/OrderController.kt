@@ -25,13 +25,13 @@ class OrderController(
     }
 
     @GetMapping("/api/v1/orders/{id}")
-    fun findById(@PathVariable id: String): JSendSuccess<Order> {
-        return JSendSuccess(data = orderFacade.getById(OrderId(id)))
+    fun findById(@PathVariable id: OrderId): JSendSuccess<Order> {
+        return JSendSuccess(data = orderFacade.getById(id))
     }
 
     @PostMapping("/api/v1/orders")
     fun create(@RequestBody request: CreateOrderRequest): ResponseEntity<JSendSuccess<Order>> {
-        val command = CreateOrderCommand(pizzaIds = request.pizzaIds.map { PizzaId(it) })
+        val command = CreateOrderCommand(pizzaIds = request.pizzaIds)
         val order = orderFacade.create(command)
         val location = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
@@ -41,4 +41,4 @@ class OrderController(
     }
 }
 
-data class CreateOrderRequest(val pizzaIds: List<String>)
+data class CreateOrderRequest(val pizzaIds: List<PizzaId>)

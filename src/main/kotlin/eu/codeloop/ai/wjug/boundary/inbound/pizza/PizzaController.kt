@@ -19,7 +19,7 @@ class PizzaController(
     }
 
     @GetMapping("/api/v1/pizzas/{id}")
-    fun findById(@PathVariable id: String): JSendSuccess<Pizza> {
-        return JSendSuccess(data = pizzaFacade.getById(PizzaId(id)))
+    fun findById(@PathVariable id: PizzaId): JSendSuccess<Pizza> {
+        return JSendSuccess(data = pizzaFacade.getById(id))
     }
 }
