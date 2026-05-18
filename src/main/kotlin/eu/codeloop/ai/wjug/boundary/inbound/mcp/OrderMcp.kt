@@ -6,6 +6,7 @@ import eu.codeloop.ai.wjug.domain.order.Order
 import eu.codeloop.ai.wjug.domain.pizza.PizzaId
 import org.springframework.ai.mcp.annotation.McpTool
 import org.springframework.ai.mcp.annotation.McpTool.McpAnnotations
+import org.springframework.ai.mcp.annotation.McpToolParam
 import org.springframework.stereotype.Component
 
 @Component
@@ -21,7 +22,7 @@ class OrderMcp(private val orderFacade: OrderFacade) {
             openWorldHint = false
         )
     )
-    fun orderPizzas(pizzaIds: List<String>): Order {
+    fun orderPizzas(@McpToolParam(description = "Pizza ids") pizzaIds: List<String>): Order {
         val ids = pizzaIds.map { PizzaId(it) }
         return orderFacade.create(CreateOrderCommand(ids))
     }
