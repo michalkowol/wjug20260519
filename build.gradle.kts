@@ -33,16 +33,9 @@ tasks.bootJar {
 	archiveFileName = "app.jar"
 }
 
-dependencyManagement {
-	imports {
-		mavenBom("org.springframework.ai:spring-ai-bom:2.0.0-M6")
-	}
-}
-
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
-	implementation("org.springframework.ai:spring-ai-starter-mcp-server-webmvc")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("tools.jackson.module:jackson-module-kotlin")
 
