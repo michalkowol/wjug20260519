@@ -106,3 +106,8 @@ Add 5 extra just in case
 ```
 
 A `Dockerfile` is provided for container builds.
+
+## Live Coding
+
+See [CHEATSHEET.md](CHEATSHEET.md) for the step-by-step plan used during the
+WJUG 330 demo.
