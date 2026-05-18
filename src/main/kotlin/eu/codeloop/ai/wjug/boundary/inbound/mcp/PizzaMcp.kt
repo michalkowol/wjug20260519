@@ -14,9 +14,9 @@ class PizzaMcp(private val pizzaFacade: PizzaFacade) {
         description = "List all available pizzas",
         annotations = McpAnnotations(
             readOnlyHint = true,
+            destructiveHint = false,
             idempotentHint = true,
-            openWorldHint = false,
-            destructiveHint = false
+            openWorldHint = false
         )
     )
     fun getAllAvailablePizzas(): List<Pizza> {

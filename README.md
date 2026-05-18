@@ -49,13 +49,38 @@ spring.ai.mcp.server.streamable-http.mcp-endpoint=/mcp
 
 ### Exposed Tools
 
-| Tool           | Description                | Source                                                |
-|----------------|----------------------------|-------------------------------------------------------|
-| `list-pizzas`  | List all available pizzas  | `boundary/inbound/pizza/PizzaMcp.kt`                  |
-| `order-pizzas` | Place an order for pizzas  | `boundary/inbound/order/PizzaOrderMcp.kt`             |
+| Tool           | Description                | Source                                |
+|----------------|----------------------------|---------------------------------------|
+| `list-pizzas`  | List all available pizzas  | `boundary/inbound/mcp/PizzaMcp.kt`    |
+| `order-pizzas` | Place an order for pizzas  | `boundary/inbound/mcp/OrderMcp.kt`    |
 
 Tools are declared with `@McpTool` on `@Component` beans in the `boundary/inbound`
 layer and delegate to the same application facades used by the REST controllers.
+
+### Tool Annotations (Hints)
+
+Each `@McpTool` carries `McpAnnotations` that describe the tool's behavior to the
+client. Clients (and LLMs) use these hints to decide e.g. whether a call needs
+user confirmation or whether the result can be cached.
+
+| Hint              | Meaning                                                | `list-pizzas` | `order-pizzas` |
+|-------------------|--------------------------------------------------------|---------------|----------------|
+| `readOnlyHint`    | Tool does not modify state                             | `true`        | `false`        |
+| `destructiveHint` | Tool may delete or overwrite data                      | `false`       | `true`         |
+| `idempotentHint`  | Repeating with same args produces the same effect      | `true`        | `false`        |
+| `openWorldHint`   | Tool reaches into an open/unbounded external world     | `false`       | `false`        |
+
+Pizza-domain rationale:
+
+- **`list-pizzas`** — pure read against the in-memory catalog. Same input always
+  returns the same output, no side effects, no external calls.
+- **`order-pizzas`** — creates a new `Order`, so not read-only. Each call mints a
+  fresh `OrderId`, so it is **not** idempotent. All state lives in our own
+  repositories, hence `openWorldHint = false`. We mark it
+  `destructiveHint = true` because, although the call is a pure INSERT in our
+  data model, in the real world an order has irreversible side effects (money
+  charged, kitchen started) — the hint tells the client to ask the user before
+  firing it.
 
 ### Client Configuration
 

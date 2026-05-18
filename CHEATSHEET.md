@@ -64,9 +64,9 @@ class PizzaMcp(private val pizzaFacade: PizzaFacade) {
         description = "List all available pizzas",
         annotations = McpAnnotations(
             readOnlyHint = true,
+            destructiveHint = false,
             idempotentHint = true,
-            openWorldHint = false,
-            destructiveHint = false
+            openWorldHint = false
         )
     )
     fun getAllAvailablePizzas(): List<Pizza> {
@@ -100,9 +100,9 @@ class OrderMcp(private val orderFacade: OrderFacade) {
         description = "Operation for ordering pizzas",
         annotations = McpAnnotations(
             readOnlyHint = false,
+            destructiveHint = true,
             idempotentHint = false,
-            openWorldHint = false,
-            destructiveHint = false
+            openWorldHint = false
         )
     )
     fun orderPizzas(pizzaIds: List<String>): Order {
