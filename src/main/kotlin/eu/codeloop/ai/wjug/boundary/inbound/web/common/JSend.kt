@@ -1,4 +1,4 @@
-package eu.codeloop.ai.wjug.boundary.inbound.common
+package eu.codeloop.ai.wjug.boundary.inbound.web.common
 
 data class JSendSuccess<T>(val status: String = "success", val data: T)
 

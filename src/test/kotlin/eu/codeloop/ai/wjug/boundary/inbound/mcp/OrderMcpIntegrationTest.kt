@@ -1,4 +1,4 @@
-package eu.codeloop.ai.wjug.boundary.inbound.order
+package eu.codeloop.ai.wjug.boundary.inbound.mcp
 
 import assertk.all
 import assertk.assertThat
@@ -11,7 +11,7 @@ import eu.codeloop.ai.wjug.isError
 import eu.codeloop.ai.wjug.isSuccess
 import org.junit.jupiter.api.Test
 
-class PizzaOrderMcpIntegrationTest : IntegrationTest() {
+class OrderMcpIntegrationTest : IntegrationTest() {
 
     @Test
     fun `order-pizzas tool should have correct description`() {
@@ -28,7 +28,9 @@ class PizzaOrderMcpIntegrationTest : IntegrationTest() {
         val tool = toolSpecifications.firstByName("order-pizzas")
 
         // when
-        val result = tool.call(mapOf("pizzaIds" to listOf("margherita", "pepperoni")))
+        val result = tool.call(
+            "pizzaIds" to listOf("margherita", "pepperoni")
+        )
 
         // then
         assertThat(result).isSuccess().all {
@@ -44,7 +46,9 @@ class PizzaOrderMcpIntegrationTest : IntegrationTest() {
         val tool = toolSpecifications.firstByName("order-pizzas")
 
         // when
-        val result = tool.call(mapOf("pizzaIds" to listOf("non-existent")))
+        val result = tool.call(
+            "pizzaIds" to listOf("non-existent")
+        )
 
         // then
         assertThat(result).isError().all {

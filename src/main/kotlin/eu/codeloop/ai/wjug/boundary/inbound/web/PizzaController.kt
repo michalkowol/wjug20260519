@@ -1,7 +1,7 @@
-package eu.codeloop.ai.wjug.boundary.inbound.pizza
+package eu.codeloop.ai.wjug.boundary.inbound.web
 
 import eu.codeloop.ai.wjug.application.pizza.PizzaFacade
-import eu.codeloop.ai.wjug.boundary.inbound.common.JSendSuccess
+import eu.codeloop.ai.wjug.boundary.inbound.web.common.JSendSuccess
 import eu.codeloop.ai.wjug.domain.pizza.Pizza
 import eu.codeloop.ai.wjug.domain.pizza.PizzaId
 import org.springframework.web.bind.annotation.GetMapping

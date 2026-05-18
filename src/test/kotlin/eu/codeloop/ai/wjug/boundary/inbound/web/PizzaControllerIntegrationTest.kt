@@ -1,4 +1,4 @@
-package eu.codeloop.ai.wjug.boundary.inbound.pizza
+package eu.codeloop.ai.wjug.boundary.inbound.web
 
 import eu.codeloop.ai.wjug.IntegrationTest
 import org.junit.jupiter.api.Test

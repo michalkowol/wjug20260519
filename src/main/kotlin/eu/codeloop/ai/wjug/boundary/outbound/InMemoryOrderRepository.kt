@@ -1,4 +1,4 @@
-package eu.codeloop.ai.wjug.boundary.outbound.order
+package eu.codeloop.ai.wjug.boundary.outbound
 
 import eu.codeloop.ai.wjug.domain.order.Order
 import eu.codeloop.ai.wjug.domain.order.OrderId

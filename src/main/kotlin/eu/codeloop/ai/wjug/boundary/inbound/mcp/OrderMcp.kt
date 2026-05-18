@@ -1,4 +1,4 @@
-package eu.codeloop.ai.wjug.boundary.inbound.order
+package eu.codeloop.ai.wjug.boundary.inbound.mcp
 
 import eu.codeloop.ai.wjug.application.order.CreateOrderCommand
 import eu.codeloop.ai.wjug.application.order.OrderFacade
@@ -9,7 +9,7 @@ import org.springframework.ai.mcp.annotation.McpTool.McpAnnotations
 import org.springframework.stereotype.Component
 
 @Component
-class PizzaOrderMcp(private val orderFacade: OrderFacade) {
+class OrderMcp(private val orderFacade: OrderFacade) {
 
     @McpTool(
         name = "order-pizzas",

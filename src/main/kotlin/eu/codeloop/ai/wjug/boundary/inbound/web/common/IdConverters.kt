@@ -1,4 +1,4 @@
-package eu.codeloop.ai.wjug.boundary.inbound.common
+package eu.codeloop.ai.wjug.boundary.inbound.web.common
 
 import eu.codeloop.ai.wjug.domain.order.OrderId
 import eu.codeloop.ai.wjug.domain.pizza.PizzaId

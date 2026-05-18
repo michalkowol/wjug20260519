@@ -1,8 +1,8 @@
-package eu.codeloop.ai.wjug.boundary.inbound.order
+package eu.codeloop.ai.wjug.boundary.inbound.web
 
 import eu.codeloop.ai.wjug.application.order.CreateOrderCommand
 import eu.codeloop.ai.wjug.application.order.OrderFacade
-import eu.codeloop.ai.wjug.boundary.inbound.common.JSendSuccess
+import eu.codeloop.ai.wjug.boundary.inbound.web.common.JSendSuccess
 import eu.codeloop.ai.wjug.domain.order.Order
 import eu.codeloop.ai.wjug.domain.order.OrderId
 import eu.codeloop.ai.wjug.domain.pizza.PizzaId

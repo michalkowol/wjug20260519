@@ -1,4 +1,4 @@
-package eu.codeloop.ai.wjug.boundary.inbound.pizza
+package eu.codeloop.ai.wjug.boundary.inbound.mcp
 
 import assertk.all
 import assertk.assertThat

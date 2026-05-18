@@ -1,4 +1,4 @@
-package eu.codeloop.ai.wjug.boundary.inbound.pizza
+package eu.codeloop.ai.wjug.boundary.inbound.mcp
 
 import eu.codeloop.ai.wjug.application.pizza.PizzaFacade
 import eu.codeloop.ai.wjug.domain.pizza.Pizza
