@@ -1,0 +1,84 @@
+### Initialize MCP session
+POST {{host}}/mcp
+Content-Type: application/json
+Accept: text/event-stream, application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": "{{$random.uuid}}",
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {}
+  }
+}
+
+### Notify initialized
+@mcpSessionId = ab4b7657-56bd-46e4-86ba-1485c381d403
+POST {{host}}/mcp
+Content-Type: application/json
+Accept: text/event-stream, application/json
+Mcp-Session-Id: {{mcpSessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+}
+
+### Ping
+POST {{host}}/mcp
+Content-Type: application/json
+Accept: text/event-stream, application/json
+Mcp-Session-Id: {{mcpSessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": "{{$random.uuid}}",
+  "method": "ping"
+}
+
+### List tools
+POST {{host}}/mcp
+Content-Type: application/json
+Accept: text/event-stream, application/json
+Mcp-Session-Id: {{mcpSessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": "{{$random.uuid}}",
+  "method": "tools/list"
+}
+
+### Call list-pizzas
+POST {{host}}/mcp
+Content-Type: application/json
+Accept: text/event-stream, application/json
+Mcp-Session-Id: {{mcpSessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": "{{$random.uuid}}",
+  "method": "tools/call",
+  "params": {
+    "name": "list-pizzas",
+    "arguments": {}
+  }
+}
+
+### Call order-pizzas
+POST {{host}}/mcp
+Content-Type: application/json
+Accept: text/event-stream, application/json
+Mcp-Session-Id: {{mcpSessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": "{{$random.uuid}}",
+  "method": "tools/call",
+  "params": {
+    "name": "order-pizzas",
+    "arguments": {
+      "pizzaIds": ["margherita", "pepperoni"]
+    }
+  }
+}
