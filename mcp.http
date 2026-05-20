@@ -14,7 +14,7 @@ Accept: text/event-stream, application/json
 }
 
 ### Notify initialized
-@mcpSessionId = ab4b7657-56bd-46e4-86ba-1485c381d403
+@mcpSessionId = 1bdb1d18-f46a-4a96-97ad-f1c361c5898e
 POST {{host}}/mcp
 Content-Type: application/json
 Accept: text/event-stream, application/json

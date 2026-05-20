@@ -2,7 +2,6 @@ package eu.codeloop.ai.wjug.boundary.inbound.mcp
 
 import eu.codeloop.ai.wjug.application.order.CreateOrderCommand
 import eu.codeloop.ai.wjug.application.order.OrderFacade
-import eu.codeloop.ai.wjug.domain.order.Order
 import eu.codeloop.ai.wjug.domain.pizza.PizzaId
 import org.springframework.ai.mcp.annotation.McpTool
 import org.springframework.ai.mcp.annotation.McpTool.McpAnnotations
@@ -23,8 +22,14 @@ class OrderMcp(private val orderFacade: OrderFacade) {
             openWorldHint = false
         )
     )
-    fun orderPizzas(@McpToolParam(description = "Pizza ids") pizzaIds: List<String>): Order {
+    fun orderPizzas(@McpToolParam(description = "Pizza ids") pizzaIds: List<String>): OrderResponse {
         val ids = pizzaIds.map { PizzaId(it) }
-        return orderFacade.create(CreateOrderCommand(ids))
+        val order = orderFacade.create(CreateOrderCommand(ids))
+        return OrderResponse(
+            id = order.id.value,
+            pizzaIds = order.pizzaIds.map { it.value }
+        )
     }
+
+    data class OrderResponse(val id: String, val pizzaIds: List<String>)
 }
