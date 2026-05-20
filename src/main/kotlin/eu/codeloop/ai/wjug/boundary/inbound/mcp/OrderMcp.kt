@@ -15,6 +15,7 @@ class OrderMcp(private val orderFacade: OrderFacade) {
     @McpTool(
         name = "order-pizzas",
         description = "Operation for ordering pizzas",
+        generateOutputSchema = true,
         annotations = McpAnnotations(
             readOnlyHint = false,
             destructiveHint = true,

@@ -12,6 +12,7 @@ class PizzaMcp(private val pizzaFacade: PizzaFacade) {
     @McpTool(
         name = "list-pizzas",
         description = "List all available pizzas",
+        generateOutputSchema = true,
         annotations = McpAnnotations(
             readOnlyHint = true,
             destructiveHint = false,
@@ -19,7 +20,9 @@ class PizzaMcp(private val pizzaFacade: PizzaFacade) {
             openWorldHint = false
         )
     )
-    fun getAllAvailablePizzas(): List<Pizza> {
-        return pizzaFacade.findAll().toList()
+    fun getAllAvailablePizzas(): PizzasResponse {
+        return PizzasResponse(pizzaFacade.findAll().toList())
     }
+
+    data class PizzasResponse(val pizzas: List<Pizza>)
 }

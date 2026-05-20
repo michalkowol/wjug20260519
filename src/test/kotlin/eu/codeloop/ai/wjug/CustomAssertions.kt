@@ -7,14 +7,16 @@ import assertk.fail
 import io.modelcontextprotocol.server.McpServerFeatures.SyncToolSpecification
 import io.modelcontextprotocol.spec.McpSchema
 import io.modelcontextprotocol.spec.McpSchema.CallToolResult
-import kotlin.test.expect
+import tools.jackson.databind.json.JsonMapper
+
+private val jsonMapper = JsonMapper.builder().build()
 
 fun Assert<CallToolResult>.isSuccess(): Assert<String> {
     return transform { actual ->
         if (actual.isError == true) {
             expected("successful result but was error:${show(actual.content())}")
         }
-        (actual.content().first() as McpSchema.TextContent).text()
+        textOrStructured(actual)
     }
 }
 
@@ -23,8 +25,15 @@ fun Assert<CallToolResult>.isError(): Assert<String> {
         if (actual.isError != true) {
             expected("error result but was success:${show(actual.content())}")
         }
-        (actual.content().first() as McpSchema.TextContent).text()
+        textOrStructured(actual)
     }
+}
+
+private fun textOrStructured(result: CallToolResult): String {
+    val text = result.content().filterIsInstance<McpSchema.TextContent>().firstOrNull()?.text()
+    if (text != null) return text
+    val structured = result.structuredContent() ?: return ""
+    return jsonMapper.writeValueAsString(structured)
 }
 
 fun Assert<SyncToolSpecification>.hasDescription(expected: String) {
